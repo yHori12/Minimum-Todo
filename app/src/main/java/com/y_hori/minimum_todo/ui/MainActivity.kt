@@ -1,7 +1,8 @@
-package com.y_hori.minimum_todo
+package com.y_hori.minimum_todo.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.y_hori.minimum_todo.R
 
 class MainActivity : AppCompatActivity() {
 
