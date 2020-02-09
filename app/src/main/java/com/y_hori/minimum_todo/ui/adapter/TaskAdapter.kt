@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.y_hori.minimum_todo.data.model.Task
-import com.y_hori.minimum_todo.databinding.ListItemTaskBinding
+import com.y_hori.minimum_todo.databinding.ListItemNewTaskBinding
 
 class TaskAdapter :ListAdapter<Task,RecyclerView.ViewHolder>(DiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ItemViewHolder(ListItemTaskBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return ItemViewHolder(ListItemNewTaskBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     }
 
-    inner class ItemViewHolder(binding: ListItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(binding: ListItemNewTaskBinding) : RecyclerView.ViewHolder(binding.root) {
         //item用のviewmodelに譲渡
     }
 
