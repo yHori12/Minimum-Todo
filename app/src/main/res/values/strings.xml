@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Minimum-Todo</string>
-    <string name="task">task</string>
-    <string name="time">time</string>
-    <string name="description">description</string>
+    <string name="text_new_task">新しいタスク</string>
+    <string name="text_reminder_time">期限</string>
+    <string name="text_description">詳細を追加</string>
+    <string name="text_save">保存</string>
+    <string name="text_notification">通知</string>
 </resources>
