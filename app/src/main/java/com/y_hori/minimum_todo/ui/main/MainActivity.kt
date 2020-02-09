@@ -1,4 +1,4 @@
-package com.y_hori.minimum_todo.ui
+package com.y_hori.minimum_todo.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
