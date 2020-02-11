@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.y_hori.minimum_todo.data.TaskRepository
 
 @Suppress("UNCHECKED_CAST")
-class PlantListViewModelFactory(
+class MainViewModelFactory(
     private val repository: TaskRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 

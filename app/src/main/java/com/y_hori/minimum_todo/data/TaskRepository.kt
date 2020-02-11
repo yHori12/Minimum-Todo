@@ -1,30 +1,36 @@
 package com.y_hori.minimum_todo.data
 
 import com.y_hori.minimum_todo.data.model.Task
+import com.y_hori.minimum_todo.data.service.TaskApiInterface
+import com.y_hori.minimum_todo.data.service.TaskApiService
 import retrofit2.Response
 import java.io.IOException
 
-class TaskRepository: BaseRepository() {
+class TaskRepository(private val apiInterface: TaskApiInterface): BaseRepository() {
 
     companion object {
         private var instance: TaskRepository? = null
         fun getInstance() =
             instance ?: synchronized(this) {
                 instance
-                    ?: TaskRepository().also { instance = it }
+                    ?: TaskRepository(TaskApiService.taskApi).also { instance = it }
             }
     }
 
     private fun dummy(): MutableList<Task> {
         return mutableListOf(
-            Task(id = 1),
-            Task(id = 2),
-            Task(id = 3)
+            Task(id = 1,title = "title1"),
+            Task(id = 2,title = "title2"),
+            Task(id = 3,title = "title3")
         )
     }
 
-    fun getTasks(): MutableList<Task> {
+    fun getTasks(uid: String): MutableList<Task> {
+//        apiInterface.fetchTasks(uid)
         return dummy()
+    }
+
+    fun postTask() {
     }
 
 }

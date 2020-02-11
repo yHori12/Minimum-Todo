@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface TaskApiInterface {
     @GET()
-    suspend fun fetchTasks():Response<MutableList<Task>>
+    suspend fun fetchTasks(uid: String):Response<MutableList<Task>>
 }

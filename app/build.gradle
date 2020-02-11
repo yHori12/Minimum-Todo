@@ -91,4 +91,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-firestore:21.4.0'
     implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+
+    implementation 'com.google.android.material:material:1.1.0'
+
+    def fragment_version = "1.2.1"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    implementation "androidx.fragment:fragment-testing:$fragment_version"
+
+    implementation 'com.github.lelloman:android-identicons:v11'
+
+
 }

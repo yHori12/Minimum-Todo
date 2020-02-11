@@ -11,13 +11,13 @@ class MainViewModel(private val repository: TaskRepository) : ViewModel() {
     val tasks: LiveData<MutableList<Task>>
         get() = _tasks
 
-    init {
-        fetchTasks()
+    private fun fetchTasks(uid: String) {
+        viewModelScope.launch {
+            _tasks.postValue(repository.getTasks(uid))
+        }
     }
 
-    private fun fetchTasks() {
-        viewModelScope.launch {
-            _tasks.postValue(repository.getTasks())
-        }
+    fun init(uid: String) {
+        fetchTasks(uid)
     }
 }
