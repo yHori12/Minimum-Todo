@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
 
         Log.d("hori_debug", user.token)
         Log.d("hori_debug", "pRqsHwI5UzZF2l60Uclb2YFHpSg2")
-        mainViewModel.init(user.uid)
+        mainViewModel.init(user.token,user.uid)
     }
 
     override fun onCreateView(

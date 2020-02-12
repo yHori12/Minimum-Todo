@@ -2,7 +2,6 @@ package com.y_hori.minimum_todo.data
 
 import android.util.Log
 import com.y_hori.minimum_todo.data.model.Task
-import com.y_hori.minimum_todo.data.model.UserItem
 import com.y_hori.minimum_todo.data.service.TaskApiInterface
 import com.y_hori.minimum_todo.data.service.TaskApiService
 import retrofit2.Response
@@ -27,13 +26,13 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
         )
     }
 
-    suspend fun getTasks(uid: String): MutableList<Task> {
+    suspend fun getTasks(token: String, uid1: String): MutableList<Task> {
 
         val result = apiOutput(
-            call = { apiInterface.fetchTasks(uid) },
+            call = { apiInterface.fetchTasks(token) },
             error = "calling fetchUserList failed"
         )
-        var output: MutableList<UserItem>? = null
+        var output: MutableList<Task>? = null
 
         when (result) {
             is NetworkResult.Success ->
@@ -41,6 +40,8 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
             is NetworkResult.Error ->
                 Log.d("Error", "${result.exception}")
         }
+
+
 
 
         return dummy()
