@@ -10,7 +10,8 @@ import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.databinding.ListItemHeaderBinding
 
 class ExpandableHeaderItem(
-    @StringRes private val titleStringResId: Int) : BindableItem<ListItemHeaderBinding>(),ExpandableItem {
+    @StringRes private val titleStringResId: Int
+) : BindableItem<ListItemHeaderBinding>(), ExpandableItem {
 
     private lateinit var expandableGroup: ExpandableGroup
 
@@ -33,8 +34,10 @@ class ExpandableHeaderItem(
 
     private fun bindIcon(viewBinding: ListItemHeaderBinding) {
         viewBinding.icon.visibility = View.VISIBLE
-        AnimatorInflater.loadAnimator(viewBinding.root.context,
-            (if (expandableGroup.isExpanded) R.animator.rotation_expand_to_collapse else R.animator.rotation_collapse_to_expand)).apply {
+        AnimatorInflater.loadAnimator(
+            viewBinding.root.context,
+            (if (expandableGroup.isExpanded) R.animator.rotation_expand_to_collapse else R.animator.rotation_collapse_to_expand)
+        ).apply {
             setTarget(viewBinding.icon)
             start()
         }

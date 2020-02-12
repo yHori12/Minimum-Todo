@@ -13,8 +13,9 @@ object TaskApiService : BaseApiService() {
 
 open class BaseApiService {
     companion object {
-        private const val baseUrl = "https://test.com"
+        private const val baseUrl = "https://fir-cloudstorerealtimeexam.firebaseio.com/"
     }
+
     private val client: OkHttpClient
         get() {
             return OkHttpClient.Builder()
@@ -22,6 +23,7 @@ open class BaseApiService {
                     level = HttpLoggingInterceptor.Level.BODY
                 }).build()
         }
+
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .client(client)

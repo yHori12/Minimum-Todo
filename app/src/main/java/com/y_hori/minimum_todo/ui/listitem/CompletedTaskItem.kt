@@ -8,8 +8,8 @@ import com.y_hori.minimum_todo.data.model.Task
 import com.y_hori.minimum_todo.databinding.ListItemCompletedTaskBinding
 
 
-class CompletedTaskItem(private val task: Task):
-    BindableItem<ListItemCompletedTaskBinding>(){
+class CompletedTaskItem(private val task: Task) :
+    BindableItem<ListItemCompletedTaskBinding>() {
     override fun getLayout(): Int =
         R.layout.list_item_completed_task
 

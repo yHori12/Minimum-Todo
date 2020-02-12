@@ -1,6 +1,7 @@
 package com.y_hori.minimum_todo.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +15,10 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.data.model.User
-import com.y_hori.minimum_todo.ui.listitem.NewTaskItem
 import com.y_hori.minimum_todo.databinding.FragmentMainBinding
 import com.y_hori.minimum_todo.ui.listitem.CompletedTaskItem
 import com.y_hori.minimum_todo.ui.listitem.ExpandableHeaderItem
+import com.y_hori.minimum_todo.ui.listitem.NewTaskItem
 import com.y_hori.minimum_todo.ui.splash.SplashActivity
 import com.y_hori.minimum_todo.utils.InjectorUtils
 
@@ -31,9 +32,14 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val user = activity?.intent?.getParcelableExtra<User>(SplashActivity.INTENT_KEY_USER) ?:return
+        val user =
+            activity?.intent?.getParcelableExtra<User>(SplashActivity.INTENT_KEY_USER) ?: return
+
+        Log.d("hori_debug", user.token)
+        Log.d("hori_debug", "pRqsHwI5UzZF2l60Uclb2YFHpSg2")
         mainViewModel.init(user.uid)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

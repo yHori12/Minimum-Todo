@@ -1,7 +1,7 @@
 package com.y_hori.minimum_todo.ui.splash
 
 import com.google.firebase.auth.FirebaseAuth
-import com.y_hori.minimum_todo.data.model.User
+import com.google.firebase.auth.FirebaseUser
 
 class SplashRepository {
 
@@ -9,10 +9,8 @@ class SplashRepository {
         private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     }
 
-    fun getUserIfAuthenticated(): User? {
-        return firebaseAuth.currentUser?.let { user ->
-            User(user.uid)
-        }
+    fun getUidIfAuthenticated(): FirebaseUser? {
+        return firebaseAuth.currentUser
     }
 
 }

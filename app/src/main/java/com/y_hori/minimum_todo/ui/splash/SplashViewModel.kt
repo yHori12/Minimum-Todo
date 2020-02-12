@@ -1,16 +1,14 @@
 package com.y_hori.minimum_todo.ui.splash
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.y_hori.minimum_todo.data.model.User
+import com.google.firebase.auth.FirebaseUser
 
 class SplashViewModel() : ViewModel() {
 
     private var splashRepository: SplashRepository = SplashRepository()
 
-    fun getUserIfAuthenticated():User? {
-        return splashRepository.getUserIfAuthenticated()
+    fun getUidIfAuthenticated(): FirebaseUser? {
+        return splashRepository.getUidIfAuthenticated()
     }
 
 }

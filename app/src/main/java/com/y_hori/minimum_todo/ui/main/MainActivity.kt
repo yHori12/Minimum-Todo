@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.y_hori.minimum_todo.R
-import com.y_hori.minimum_todo.ui.splash.SplashActivity.Companion.INTENT_KEY_USER
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onSupportNavigateUp()
-            = findNavController(R.id.nav_host_fragment).navigateUp()
+    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
 
 }

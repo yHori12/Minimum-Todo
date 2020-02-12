@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.y_hori.minimum_todo.ui.create.CreateTaskViewModel" />
@@ -12,8 +13,8 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="200dp"
         android:layout_margin="40dp"
+        android:layout_marginBottom="200dp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -21,17 +22,17 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="8dp"
-            app:boxStrokeColor="@color/colorAccent"
-            android:hint="@string/text_new_task">
+            android:hint="@string/text_new_task"
+            app:boxStrokeColor="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
                 android:drawableStart="@drawable/ic_text_fields_24px"
-                android:text="@{viewModel.title}"
+                android:drawablePadding="10dp"
                 android:inputType="text"
+                android:text="@{viewModel.title}"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,8 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="8dp"
-            app:boxStrokeColor="@color/colorAccent"
-            android:hint="@string/text_description">
+            android:hint="@string/text_description"
+            app:boxStrokeColor="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description"
@@ -50,8 +51,8 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_event_note_24px"
                 android:drawablePadding="10dp"
-                android:text="@{viewModel.description}"
                 android:inputType="text"
+                android:text="@{viewModel.description}"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,27 +81,27 @@
 
             <Switch
                 android:id="@+id/HasRemind"
-                android:layout_marginStart="40dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp" />
 
         </LinearLayout>
 
 
         <TextView
             android:id="@+id/textView"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="日程をここに表示する。"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/button_create"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/text_save"
             android:textColor="@color/colorPrimary" />
 

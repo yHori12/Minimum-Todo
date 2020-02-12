@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.Bridge">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/textColorBlack</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="textAppearanceButton">@style/AppTextAppearance.Button</item>
     </style>
@@ -18,10 +18,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-    </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar" />
 
-    <style name="ToolBarTheme"  parent="ThemeOverlay.AppCompat.ActionBar">
+    <style name="ToolBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="colorControlNormal">@color/textColorBlack</item>
     </style>
 

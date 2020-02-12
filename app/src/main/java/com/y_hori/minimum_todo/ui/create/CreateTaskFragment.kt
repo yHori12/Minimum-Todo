@@ -20,7 +20,7 @@ class CreateTaskFragment : Fragment() {
             CreateTaskFragment()
     }
 
-    private lateinit var binding:FragmentCreateTaskBinding
+    private lateinit var binding: FragmentCreateTaskBinding
     private val createTaskViewModel: CreateTaskViewModel by viewModels {
         InjectorUtils.provideCreateTaskViewModelFactory()
     }
@@ -31,7 +31,7 @@ class CreateTaskFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_create_task,container,false
+            R.layout.fragment_create_task, container, false
         )
         return binding.root
     }
@@ -46,7 +46,7 @@ class CreateTaskFragment : Fragment() {
                 if (input.toString().isEmpty()) return@doAfterTextChanged
                 createTaskViewModel.updateTitle(input.toString())
             }
-            description.doAfterTextChanged{ input ->
+            description.doAfterTextChanged { input ->
                 if (input.toString().isEmpty()) return@doAfterTextChanged
                 createTaskViewModel.updateDescription(input.toString())
             }

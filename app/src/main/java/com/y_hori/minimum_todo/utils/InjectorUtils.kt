@@ -1,9 +1,8 @@
 package com.y_hori.minimum_todo.utils
 
-import com.y_hori.minimum_todo.ui.main.MainViewModelFactory
 import com.y_hori.minimum_todo.data.TaskRepository
-import com.y_hori.minimum_todo.ui.create.CreateTaskViewModel
 import com.y_hori.minimum_todo.ui.create.CreateTaskViewModelFactory
+import com.y_hori.minimum_todo.ui.main.MainViewModelFactory
 
 object InjectorUtils {
     fun provideTaskListViewModelFactory(): MainViewModelFactory {

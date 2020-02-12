@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.y_hori.minimum_todo.data.TaskRepository
 import kotlinx.coroutines.launch
 
-class CreateTaskViewModel(private val repository: TaskRepository) : ViewModel(){
+class CreateTaskViewModel(private val repository: TaskRepository) : ViewModel() {
 
     private val _title = MutableLiveData<String>()
     val title: LiveData<String>
@@ -18,7 +18,7 @@ class CreateTaskViewModel(private val repository: TaskRepository) : ViewModel(){
         get() = _description
 
 
-    fun createTask(){
+    fun createTask() {
         viewModelScope.launch {
             repository.postTask()
         }

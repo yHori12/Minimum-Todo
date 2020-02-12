@@ -22,7 +22,7 @@
         android:id="@+id/createTaskFragment"
         android:name="com.y_hori.minimum_todo.ui.create.CreateTaskFragment"
         android:label="Create New Task"
-        tools:layout="@layout/fragment_create_task" >
+        tools:layout="@layout/fragment_create_task">
         <action
             android:id="@+id/action_createTaskFragment_to_mainFragment"
             app:destination="@id/mainFragment"
