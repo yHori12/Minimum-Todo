@@ -8,8 +8,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TaskApiInterface {
-    @GET("users.json")
+    @GET("{user}/tasks.json")
     suspend fun fetchTasks(
+        @Path("user") uid: String,
         @Query("auth") token:String
         ): Response<MutableList<Task>>
 }

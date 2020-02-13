@@ -34,10 +34,7 @@ class MainFragment : Fragment() {
 
         val user =
             activity?.intent?.getParcelableExtra<User>(SplashActivity.INTENT_KEY_USER) ?: return
-
-        Log.d("hori_debug", user.token)
-        Log.d("hori_debug", "pRqsHwI5UzZF2l60Uclb2YFHpSg2")
-        mainViewModel.init(user.token,user.uid)
+        mainViewModel.fetchTasks(user)
     }
 
     override fun onCreateView(

@@ -26,11 +26,11 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
         )
     }
 
-    suspend fun getTasks(token: String, uid1: String): MutableList<Task> {
+    suspend fun getTasks(uid: String, token: String): MutableList<Task>? {
 
         val result = apiOutput(
-            call = { apiInterface.fetchTasks(token) },
-            error = "calling fetchUserList failed"
+            call = { apiInterface.fetchTasks(uid, token) },
+            error = "calling fetchTasks failed"
         )
         var output: MutableList<Task>? = null
 
@@ -40,11 +40,7 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
             is NetworkResult.Error ->
                 Log.d("Error", "${result.exception}")
         }
-
-
-
-
-        return dummy()
+        return output
     }
 
     fun postTask() {
@@ -59,10 +55,15 @@ open class BaseRepository {
         error: String
     ): NetworkResult<T> {
         val response = call.invoke()
-        return if (response.isSuccessful)
-            NetworkResult.Success(response.body()!!)
-        else
+        return if (response.isSuccessful) {
+            if (response.body() != null) {
+                NetworkResult.Success(response.body()!!)
+            } else {
+                NetworkResult.Error(IOException(error))
+            }
+        } else {
             NetworkResult.Error(IOException(error))
+        }
     }
 }
 

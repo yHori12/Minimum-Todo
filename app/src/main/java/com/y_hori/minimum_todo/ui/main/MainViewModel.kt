@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.y_hori.minimum_todo.data.TaskRepository
 import com.y_hori.minimum_todo.data.model.Task
+import com.y_hori.minimum_todo.data.model.User
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: TaskRepository) : ViewModel() {
@@ -14,13 +15,11 @@ class MainViewModel(private val repository: TaskRepository) : ViewModel() {
     val tasks: LiveData<MutableList<Task>>
         get() = _tasks
 
-    private fun fetchTasks(token: String, uid: String) {
+    fun fetchTasks(user: User) {
         viewModelScope.launch {
-            _tasks.postValue(repository.getTasks(token,uid))
+            repository.getTasks(user.uid, user.token)?.let { tasks ->
+                _tasks.postValue(tasks)
+            }
         }
-    }
-
-    fun init(token: String, uid: String) {
-        fetchTasks(token,uid)
     }
 }
