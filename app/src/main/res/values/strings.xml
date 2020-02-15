@@ -6,4 +6,5 @@
     <string name="text_save">保存</string>
     <string name="text_notification">通知</string>
     <string name="expanding_group">完了したタスク</string>
+    <string name="text_error_input_title">タイトルを入力してください</string>
 </resources>

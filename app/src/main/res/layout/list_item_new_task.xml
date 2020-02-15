@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="task"
             type="com.y_hori.minimum_todo.data.model.Task" />
@@ -29,7 +28,6 @@
                 android:id="@+id/hashView"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:hash="@{task.toString()}"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -52,7 +50,6 @@
                 android:layout_below="@id/title"
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@id/hashView"
-                android:text="@{String.valueOf(task.timeStamp)}"
                 android:textSize="12sp"
                 tools:text="@string/text_reminder_time" />
 

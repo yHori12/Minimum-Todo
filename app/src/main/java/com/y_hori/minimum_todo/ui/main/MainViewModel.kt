@@ -15,10 +15,69 @@ class MainViewModel(private val repository: TaskRepository) : ViewModel() {
     val tasks: LiveData<MutableList<Task>>
         get() = _tasks
 
-    fun fetchTasks(user: User) {
+    private val _title = MutableLiveData<String>()
+    val title: LiveData<String>
+        get() = _title
+
+    private val _description = MutableLiveData<String>("")
+    val description: LiveData<String>
+        get() = _description
+
+    private val _liveEventShowErrorDialog = MutableLiveData<Boolean>(false)
+    val liveEventShowErrorDialog: LiveData<Boolean>
+        get() = _liveEventShowErrorDialog
+
+    private val _liveEventCreateTaskSuccess = MutableLiveData<Boolean>(false)
+    val liveEventCreateTaskSuccess: LiveData<Boolean>
+        get() = _liveEventCreateTaskSuccess
+
+
+    private var user: User = User()
+
+    fun fetchTasks() {
         viewModelScope.launch {
-            repository.getTasks(user.uid, user.token)?.let { tasks ->
+            repository.getTasks(user)?.let { tasks ->
                 _tasks.postValue(tasks)
+            }
+        }
+    }
+
+    fun createTask() {
+        if (title.value.isNullOrEmpty()) {
+            _liveEventShowErrorDialog.value = true
+            _liveEventShowErrorDialog.value = false
+            return
+        }
+        viewModelScope.launch {
+            repository.createTask(
+                Task(title = title.value!!, description = description.value!!),
+                user
+            )?.let { tasks ->
+                _tasks.postValue(tasks)
+                _liveEventCreateTaskSuccess.value = true
+                _liveEventCreateTaskSuccess.value = false
+            }
+        }
+    }
+
+    fun updateTitle(title: String) {
+        _title.value = title
+    }
+
+    fun updateDescription(description: String) {
+        _description.value = description
+    }
+
+    fun saveUser(user: User) {
+        this.user = user
+    }
+
+    fun completeTask(task: Task) {
+        viewModelScope.launch {
+            repository.completeTask(task, user)?.let { tasks ->
+                _tasks.postValue(tasks)
+                _liveEventShowErrorDialog.value = true
+                _liveEventShowErrorDialog.value = false
             }
         }
     }
