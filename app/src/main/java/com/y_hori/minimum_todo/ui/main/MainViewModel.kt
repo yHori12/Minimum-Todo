@@ -31,14 +31,19 @@ class MainViewModel(private val repository: TaskRepository) : ViewModel() {
     val liveEventCreateTaskSuccess: LiveData<Boolean>
         get() = _liveEventCreateTaskSuccess
 
+    private val _shouldShowProgress = MutableLiveData<Boolean>(false)
+    val shouldShowProgress: LiveData<Boolean>
+        get() = _shouldShowProgress
 
     private var user: User = User()
 
     fun fetchTasks() {
         viewModelScope.launch {
+            _shouldShowProgress.value = true
             repository.getTasks(user)?.let { tasks ->
                 _tasks.postValue(tasks)
             }
+            _shouldShowProgress.value = false
         }
     }
 
@@ -49,6 +54,7 @@ class MainViewModel(private val repository: TaskRepository) : ViewModel() {
             return
         }
         viewModelScope.launch {
+            _shouldShowProgress.value = true
             repository.createTask(
                 Task(title = title.value!!, description = description.value!!),
                 user
@@ -56,6 +62,7 @@ class MainViewModel(private val repository: TaskRepository) : ViewModel() {
                 _tasks.postValue(tasks)
                 _liveEventCreateTaskSuccess.value = true
                 _liveEventCreateTaskSuccess.value = false
+                _shouldShowProgress.value = false
             }
         }
     }
@@ -74,10 +81,12 @@ class MainViewModel(private val repository: TaskRepository) : ViewModel() {
 
     fun completeTask(task: Task) {
         viewModelScope.launch {
+            _shouldShowProgress.value = true
             repository.completeTask(task, user)?.let { tasks ->
                 _tasks.postValue(tasks)
                 _liveEventShowErrorDialog.value = true
                 _liveEventShowErrorDialog.value = false
+                _shouldShowProgress.value = false
             }
         }
     }

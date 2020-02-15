@@ -3,110 +3,123 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.y_hori.minimum_todo.ui.main.MainViewModel" />
+        <import type="android.view.View"/>
     </data>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="40dp"
-        android:layout_marginBottom="200dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_title"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="8dp"
-            android:hint="@string/text_new_task"
-            app:boxStrokeColor="@color/colorAccent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_text_fields_24px"
-                android:drawablePadding="10dp"
-                android:inputType="text"
-                android:text="@{viewModel.title}"
-                android:textSize="18sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_description"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="8dp"
-            android:hint="@string/text_description"
-            app:boxStrokeColor="@color/colorAccent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_event_note_24px"
-                android:drawablePadding="10dp"
-                android:inputType="text"
-                android:text="@{viewModel.description}"
-                android:textSize="18sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/style_progress_bar"
+            android:visibility="@{viewModel.shouldShowProgress? View.VISIBLE : View.GONE  }"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_margin="40dp"
+            android:layout_marginBottom="200dp"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imgal"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="40dp"
-                android:src="@drawable/ic_notifications_active_24px" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_title"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:hint="@string/text_new_task"
+                app:boxStrokeColor="@color/colorAccent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_text_fields_24px"
+                    android:drawablePadding="10dp"
+                    android:inputType="text"
+                    android:text="@{viewModel.title}"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_description"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:hint="@string/text_description"
+                app:boxStrokeColor="@color/colorAccent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_event_note_24px"
+                    android:drawablePadding="10dp"
+                    android:inputType="text"
+                    android:text="@{viewModel.description}"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgal"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:src="@drawable/ic_notifications_active_24px" />
+
+                <TextView
+                    android:id="@+id/tvRemind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_notification"
+                    android:textSize="18sp" />
+
+                <Switch
+                    android:id="@+id/HasRemind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp" />
+
+            </LinearLayout>
+
 
             <TextView
-                android:id="@+id/tvRemind"
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_notification"
-                android:textSize="18sp" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:text="日程をここに表示する。"
+                android:textSize="20sp" />
 
-            <Switch
-                android:id="@+id/HasRemind"
+            <Button
+                android:id="@+id/button_create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp" />
+                android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.createTask()}"
+                android:text="@string/text_save"
+                android:textColor="@color/textColorBlack" />
 
         </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:text="日程をここに表示する。"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/button_create"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="@{() -> viewModel.createTask()}"
-            android:text="@string/text_save"
-            android:textColor="@color/colorPrimary" />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 
 

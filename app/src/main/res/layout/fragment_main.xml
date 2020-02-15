@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.y_hori.minimum_todo.ui.main.MainViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -15,6 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:visibility="@{viewModel.shouldShowProgress? View.VISIBLE : View.GONE  }"
+            style="@style/style_progress_bar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/task_list"
