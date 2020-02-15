@@ -7,9 +7,9 @@ import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-class User(
+data class User(
     val token: String = "",
-    var uid: String
+    var uid: String = ""
 ) : Parcelable {
     @IgnoredOnParcel
     var name: String? = ""
