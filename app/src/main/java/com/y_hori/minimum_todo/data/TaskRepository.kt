@@ -87,7 +87,43 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
         }
     }
 
+    suspend fun completeTask(task: Task, user: User): MutableList<Task>? {
+        val result = apiOutput(
+            call = {
+                apiInterface.patchTask(
+                    user.uid,
+                    task.id,
+                    mapOf(Pair("Authorization", "Bearer ${user.token}")),
+                    Doument(
+                        fields = Fields(
+                            title = Title(
+                                task.title
+                            ),
+                            description = Description(
+                                task.description
+                            ),
+                            isCompleted = IsCompleted(
+                                task.isCompleted
+                            ),
+                            dueDate = DueDate(
+                                task.timetamp
+                            )
+                        )
+                    )
+                )
+            },
+            error = "calling putTask failed"
+        )
+        return when (result) {
+            is NetworkResult.Success ->
+                getTasks(user)
+            is NetworkResult.Error -> {
+                Log.d("Error", "${result.exception}")
+                null
+            }
+        }
     }
+}
 
 fun String?.toDocumentId(): String? {
     return this?.replace(".*/".toRegex(), "")
