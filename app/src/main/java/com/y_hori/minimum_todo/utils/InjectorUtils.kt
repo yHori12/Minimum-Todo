@@ -1,6 +1,6 @@
 package com.y_hori.minimum_todo.utils
 
-import com.y_hori.minimum_todo.data.TaskRepository
+import com.y_hori.minimum_todo.data.repository.TaskRepository
 import com.y_hori.minimum_todo.ui.main.MainViewModelFactory
 
 object InjectorUtils {

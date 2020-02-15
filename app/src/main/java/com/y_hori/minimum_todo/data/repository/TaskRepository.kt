@@ -1,4 +1,4 @@
-package com.y_hori.minimum_todo.data
+package com.y_hori.minimum_todo.data.repository
 
 import android.util.Log
 import com.y_hori.minimum_todo.data.model.Task

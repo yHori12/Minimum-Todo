@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.y_hori.minimum_todo.data.TaskRepository
+import com.y_hori.minimum_todo.data.repository.TaskRepository
 import com.y_hori.minimum_todo.data.model.Task
 import com.y_hori.minimum_todo.data.model.User
 import kotlinx.coroutines.launch
