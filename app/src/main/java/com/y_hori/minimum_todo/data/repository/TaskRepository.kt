@@ -14,11 +14,11 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
         fun getInstance() =
             instance
                 ?: synchronized(this) {
-                instance
-                    ?: TaskRepository(
-                        TaskApiService.taskApi
-                    ).also { instance = it }
-            }
+                    instance
+                        ?: TaskRepository(
+                            TaskApiService.taskApi
+                        ).also { instance = it }
+                }
     }
 
     suspend fun getTasks(user: User): MutableList<Task>? {
@@ -34,12 +34,12 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
 
         return when (result) {
             is NetworkResult.Success -> {
-                result.output.documents?.map {
+                result.output.documents?.map { document ->
                     Task(
-                        id = it.name.toDocumentId() ?: "",
-                        title = it.fields.title.stringValue,
-                        description = it.fields.description.stringValue,
-                        isCompleted = it.fields.isCompleted.booleanValue
+                        id = document.name.toDocumentId() ?: "",
+                        title = document.fields.title.stringValue,
+                        description = document.fields.description.stringValue,
+                        isCompleted = document.fields.isCompleted.booleanValue
                     )
                 }?.toMutableList()
             }
@@ -57,7 +57,7 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
                 apiInterface.postTask(
                     user.uid,
                     mapOf(Pair("Authorization", "Bearer ${user.token}")),
-                    Doument(
+                    Document(
                         fields = Fields(
                             title = Title(
                                 task.title
@@ -94,7 +94,7 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
                     user.uid,
                     task.id,
                     mapOf(Pair("Authorization", "Bearer ${user.token}")),
-                    Doument(
+                    Document(
                         fields = Fields(
                             title = Title(
                                 task.title

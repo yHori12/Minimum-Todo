@@ -2,7 +2,6 @@ package com.y_hori.minimum_todo.ui.listitem
 
 import android.animation.AnimatorInflater
 import android.view.View
-import androidx.annotation.StringRes
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.ExpandableItem
 import com.xwray.groupie.databinding.BindableItem

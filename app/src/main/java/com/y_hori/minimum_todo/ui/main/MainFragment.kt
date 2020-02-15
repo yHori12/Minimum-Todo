@@ -68,20 +68,29 @@ class MainFragment : Fragment() {
 
     private fun subscribeUi(adapter: GroupAdapter<GroupieViewHolder>) {
         mainViewModel.tasks.observe(viewLifecycleOwner) { tasks ->
-            val newTasks = tasks.filter { !it.isCompleted }.map {
-                NewTaskItem(it, object : OnClickTaskItem {
+            val newTasks = tasks.filter { !it.isCompleted }.map { task ->
+                NewTaskItem(task, object : OnClickTaskItem {
                     override fun onClickComplete() {
-                        mainViewModel.completeTask(it.apply {
-                            it.isCompleted = true
+                        mainViewModel.completeTask(task.apply {
+                            task.isCompleted = true
                         })
                     }
                 })
             }
             adapter.update(newTasks)
 
-            val completedTasks = tasks.filter { it.isCompleted }.map { CompletedTaskItem(it) }
-            if (!completedTasks.isNullOrEmpty()){
-                val expandableGroup = ExpandableGroup(ExpandableHeaderItem(getString(R.string.text_title_expanding_group,completedTasks.size)))
+            val completedTasks = tasks.filter { task -> task.isCompleted }.map { task ->
+                CompletedTaskItem(task)
+            }
+            if (!completedTasks.isNullOrEmpty()) {
+                val expandableGroup = ExpandableGroup(
+                    ExpandableHeaderItem(
+                        getString(
+                            R.string.text_title_expanding_group,
+                            completedTasks.size
+                        )
+                    )
+                )
                 expandableGroup.addAll(completedTasks)
                 adapter.add(expandableGroup)
             }

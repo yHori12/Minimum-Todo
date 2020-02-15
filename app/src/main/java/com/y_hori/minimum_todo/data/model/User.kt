@@ -17,6 +17,6 @@ data class User(
 
 @JsonClass(generateAdapter = true)
 data class UserItem(
-    val first:String,
-    val last:String
+    val first: String,
+    val last: String
 )
