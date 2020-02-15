@@ -15,7 +15,6 @@ import com.xwray.groupie.GroupieViewHolder
 import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.data.model.User
 import com.y_hori.minimum_todo.databinding.FragmentMainBinding
-import com.y_hori.minimum_todo.ui.create.CreateTaskFragmentDirections
 import com.y_hori.minimum_todo.ui.listitem.CompletedTaskItem
 import com.y_hori.minimum_todo.ui.listitem.ExpandableHeaderItem
 import com.y_hori.minimum_todo.ui.listitem.NewTaskItem
@@ -82,7 +81,7 @@ class MainFragment : Fragment() {
 
             val completedTasks = tasks.filter { it.isCompleted }.map { CompletedTaskItem(it) }
             if (!completedTasks.isNullOrEmpty()){
-                val expandableGroup = ExpandableGroup(ExpandableHeaderItem(R.string.expanding_group))
+                val expandableGroup = ExpandableGroup(ExpandableHeaderItem(getString(R.string.text_title_expanding_group,completedTasks.size)))
                 expandableGroup.addAll(completedTasks)
                 adapter.add(expandableGroup)
             }

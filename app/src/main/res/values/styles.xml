@@ -24,4 +24,10 @@
         <item name="colorControlNormal">@color/textColorBlack</item>
     </style>
 
+    <style name="style_progress_bar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+
 </resources>

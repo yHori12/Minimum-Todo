@@ -1,18 +1,22 @@
 package com.y_hori.minimum_todo.ui.create
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.databinding.FragmentCreateTaskBinding
+import com.y_hori.minimum_todo.ui.HeaderSnackBar
 import com.y_hori.minimum_todo.ui.main.MainViewModel
 import com.y_hori.minimum_todo.utils.InjectorUtils
 
@@ -55,12 +59,11 @@ class CreateTaskFragment : Fragment() {
     private fun subscribeUi() {
         mainViewModel.liveEventShowErrorDialog.observe(viewLifecycleOwner) { flag ->
             if (flag) {
-                val snackbar = Snackbar.make(
+                Snackbar.make(
                     binding.linearLayout,
                     getString(R.string.text_error_input_title),
                     Snackbar.LENGTH_SHORT
-                )
-                snackbar.show()
+                ).show()
             }
         }
         mainViewModel.liveEventCreateTaskSuccess.observe(viewLifecycleOwner) { flag ->

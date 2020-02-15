@@ -10,16 +10,16 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="5dp"
         android:elevation="8dp"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
 
         <RelativeLayout
-            android:id="@+id/relcard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp">
@@ -28,10 +28,11 @@
                 android:id="@+id/hashView"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:hash="@{task.title}"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -44,12 +45,23 @@
                 tools:text="@string/text_new_task" />
 
             <TextView
-                android:id="@+id/time"
+                android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:layout_marginStart="16dp"
+                android:layout_below="@id/tvTitle"
+                android:layout_marginStart="@dimen/margin_16"
                 android:layout_toEndOf="@id/hashView"
+                android:text="@{task.description}"
+                android:textSize="12sp"
+                tools:text="@string/text_reminder_time" />
+
+            <TextView
+                android:id="@+id/tvDeadLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTitle"
+                android:layout_marginStart="16dp"
+                android:layout_toStartOf="@id/completionToggle"
                 android:textSize="12sp"
                 tools:text="@string/text_reminder_time" />
 

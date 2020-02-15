@@ -10,7 +10,7 @@ import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.databinding.ListItemHeaderBinding
 
 class ExpandableHeaderItem(
-    @StringRes private val titleStringResId: Int
+    private val title: String
 ) : BindableItem<ListItemHeaderBinding>(), ExpandableItem {
 
     private lateinit var expandableGroup: ExpandableGroup
@@ -20,7 +20,7 @@ class ExpandableHeaderItem(
     }
 
     override fun bind(viewBinding: ListItemHeaderBinding, position: Int) {
-        viewBinding.title.setText(titleStringResId)
+        viewBinding.title.text = title
 
         viewBinding.icon.apply {
             visibility = View.VISIBLE
