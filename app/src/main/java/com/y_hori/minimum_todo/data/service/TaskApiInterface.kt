@@ -1,16 +1,27 @@
 package com.y_hori.minimum_todo.data.service
 
-import com.y_hori.minimum_todo.data.model.Task
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface TaskApiInterface {
-    @GET("{user}/tasks.json")
+    @GET("(default)/documents/{user}")
     suspend fun fetchTasks(
         @Path("user") uid: String,
-        @Query("auth") token:String
-        ): Response<MutableList<Task>>
+        @HeaderMap token:Map<String,String>
+    ): Response<FirebaseApiResponse>
+
+    @POST("(default)/documents/{user}/")
+    suspend fun postTask(
+        @Path("user") uid: String,
+        @HeaderMap token:Map<String,String>,
+        @Body task: Doument
+        ): Response<FirebaseApiResponse>
+
+    @PATCH("(default)/documents/{user}/{taskId}")
+    suspend fun patchTask(
+        @Path("user") uid: String,
+        @Path("taskId") taskId: String,
+        @HeaderMap token:Map<String,String>,
+        @Body task: Doument
+    ): Response<Doument>
 }
