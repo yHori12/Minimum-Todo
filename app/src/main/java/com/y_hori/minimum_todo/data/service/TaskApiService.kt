@@ -13,7 +13,7 @@ object TaskApiService : BaseApiService() {
 
 open class BaseApiService {
     companion object {
-        private const val baseUrl = "https://fir-cloudstorerealtimeexam.firebaseio.com/"
+        private const val baseUrl = "https://firestore.googleapis.com/v1/projects/fir-cloudstorerealtimeexam/databases/"
     }
 
     private val client: OkHttpClient

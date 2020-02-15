@@ -1,13 +1,12 @@
 package com.y_hori.minimum_todo.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import com.xwray.groupie.ExpandableGroup
@@ -16,16 +15,18 @@ import com.xwray.groupie.GroupieViewHolder
 import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.data.model.User
 import com.y_hori.minimum_todo.databinding.FragmentMainBinding
+import com.y_hori.minimum_todo.ui.create.CreateTaskFragmentDirections
 import com.y_hori.minimum_todo.ui.listitem.CompletedTaskItem
 import com.y_hori.minimum_todo.ui.listitem.ExpandableHeaderItem
 import com.y_hori.minimum_todo.ui.listitem.NewTaskItem
+import com.y_hori.minimum_todo.ui.listitem.OnClickTaskItem
 import com.y_hori.minimum_todo.ui.splash.SplashActivity
 import com.y_hori.minimum_todo.utils.InjectorUtils
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
-    private val mainViewModel: MainViewModel by viewModels {
+    private val mainViewModel: MainViewModel by activityViewModels {
         InjectorUtils.provideTaskListViewModelFactory()
     }
 
@@ -34,10 +35,8 @@ class MainFragment : Fragment() {
 
         val user =
             activity?.intent?.getParcelableExtra<User>(SplashActivity.INTENT_KEY_USER) ?: return
-
-        Log.d("hori_debug", user.token)
-        Log.d("hori_debug", "pRqsHwI5UzZF2l60Uclb2YFHpSg2")
-        mainViewModel.init(user.uid)
+        mainViewModel.saveUser(user)
+        mainViewModel.fetchTasks()
     }
 
     override fun onCreateView(
@@ -69,24 +68,24 @@ class MainFragment : Fragment() {
     }
 
     private fun subscribeUi(adapter: GroupAdapter<GroupieViewHolder>) {
-//         Expandable group
-        val expandableHeaderItem =
-            ExpandableHeaderItem(R.string.expanding_group)
-        val expandableGroup = ExpandableGroup(expandableHeaderItem)
-
         mainViewModel.tasks.observe(viewLifecycleOwner) { tasks ->
-
-            val newTasks = tasks.map {
-                NewTaskItem(it)
+            val newTasks = tasks.filter { !it.isCompleted }.map {
+                NewTaskItem(it, object : OnClickTaskItem {
+                    override fun onClickComplete() {
+                        mainViewModel.completeTask(it.apply {
+                            it.isCompleted = true
+                        })
+                    }
+                })
             }
-            val completedTasks = tasks.map {
-                CompletedTaskItem(it)
-            }
-
             adapter.update(newTasks)
-            expandableGroup.addAll(completedTasks)
-            adapter.add(expandableGroup)
 
+            val completedTasks = tasks.filter { it.isCompleted }.map { CompletedTaskItem(it) }
+            if (!completedTasks.isNullOrEmpty()){
+                val expandableGroup = ExpandableGroup(ExpandableHeaderItem(R.string.expanding_group))
+                expandableGroup.addAll(completedTasks)
+                adapter.add(expandableGroup)
+            }
         }
     }
 }

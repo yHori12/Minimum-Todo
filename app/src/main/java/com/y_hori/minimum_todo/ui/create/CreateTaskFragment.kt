@@ -7,22 +7,20 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.observe
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.databinding.FragmentCreateTaskBinding
+import com.y_hori.minimum_todo.ui.main.MainViewModel
 import com.y_hori.minimum_todo.utils.InjectorUtils
 
 class CreateTaskFragment : Fragment() {
 
-    companion object {
-        fun newInstance() =
-            CreateTaskFragment()
-    }
-
     private lateinit var binding: FragmentCreateTaskBinding
-    private val createTaskViewModel: CreateTaskViewModel by viewModels {
-        InjectorUtils.provideCreateTaskViewModelFactory()
+    private val mainViewModel: MainViewModel by activityViewModels {
+        InjectorUtils.provideTaskListViewModelFactory()
     }
 
     override fun onCreateView(
@@ -40,22 +38,36 @@ class CreateTaskFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.apply {
-            this.viewModel = createTaskViewModel
+            this.viewModel = mainViewModel
             this.lifecycleOwner = viewLifecycleOwner
             this.title.doAfterTextChanged { input ->
                 if (input.toString().isEmpty()) return@doAfterTextChanged
-                createTaskViewModel.updateTitle(input.toString())
+                mainViewModel.updateTitle(input.toString())
             }
-            description.doAfterTextChanged { input ->
+            this.description.doAfterTextChanged { input ->
                 if (input.toString().isEmpty()) return@doAfterTextChanged
-                createTaskViewModel.updateDescription(input.toString())
+                mainViewModel.updateDescription(input.toString())
             }
-            this.buttonCreate.setOnClickListener { view ->
-                view.findNavController()
-                    .navigate(CreateTaskFragmentDirections.actionCreateTaskFragmentToMainFragment())
-            }
-
         }
+        subscribeUi()
     }
 
+    private fun subscribeUi() {
+        mainViewModel.liveEventShowErrorDialog.observe(viewLifecycleOwner) { flag ->
+            if (flag) {
+                val snackbar = Snackbar.make(
+                    binding.linearLayout,
+                    getString(R.string.text_error_input_title),
+                    Snackbar.LENGTH_SHORT
+                )
+                snackbar.show()
+            }
+        }
+        mainViewModel.liveEventCreateTaskSuccess.observe(viewLifecycleOwner) { flag ->
+            if (flag) {
+                view?.findNavController()
+                    ?.navigate(CreateTaskFragmentDirections.actionCreateTaskFragmentToMainFragment())
+            }
+        }
+    }
 }
