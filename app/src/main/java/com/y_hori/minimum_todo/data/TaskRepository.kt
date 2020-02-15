@@ -2,8 +2,8 @@ package com.y_hori.minimum_todo.data
 
 import android.util.Log
 import com.y_hori.minimum_todo.data.model.Task
-import com.y_hori.minimum_todo.data.service.TaskApiInterface
-import com.y_hori.minimum_todo.data.service.TaskApiService
+import com.y_hori.minimum_todo.data.model.User
+import com.y_hori.minimum_todo.data.service.*
 import retrofit2.Response
 import java.io.IOException
 
@@ -12,40 +12,85 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
     companion object {
         private var instance: TaskRepository? = null
         fun getInstance() =
-            instance ?: synchronized(this) {
+            instance
+                ?: synchronized(this) {
                 instance
-                    ?: TaskRepository(TaskApiService.taskApi).also { instance = it }
+                    ?: TaskRepository(
+                        TaskApiService.taskApi
+                    ).also { instance = it }
             }
     }
 
-    private fun dummy(): MutableList<Task> {
-        return mutableListOf(
-            Task(id = 1, title = "title1"),
-            Task(id = 2, title = "title2"),
-            Task(id = 3, title = "title3")
-        )
-    }
-
-    suspend fun getTasks(uid: String, token: String): MutableList<Task>? {
-
+    suspend fun getTasks(user: User): MutableList<Task>? {
         val result = apiOutput(
-            call = { apiInterface.fetchTasks(uid, token) },
+            call = {
+                apiInterface.fetchTasks(
+                    user.uid,
+                    mapOf(Pair("Authorization", "Bearer ${user.token}"))
+                )
+            },
             error = "calling fetchTasks failed"
         )
-        var output: MutableList<Task>? = null
 
-        when (result) {
-            is NetworkResult.Success ->
-                output = result.output
-            is NetworkResult.Error ->
+        return when (result) {
+            is NetworkResult.Success -> {
+                result.output.documents?.map {
+                    Task(
+                        id = it.name.toDocumentId() ?: "",
+                        title = it.fields.title.stringValue,
+                        description = it.fields.description.stringValue,
+                        isCompleted = it.fields.isCompleted.booleanValue
+                    )
+                }?.toMutableList()
+            }
+            is NetworkResult.Error -> {
                 Log.d("Error", "${result.exception}")
+                null
+            }
         }
-        return output
     }
 
-    fun postTask() {
+
+    suspend fun createTask(task: Task, user: User): MutableList<Task>? {
+        val result = apiOutput(
+            call = {
+                apiInterface.postTask(
+                    user.uid,
+                    mapOf(Pair("Authorization", "Bearer ${user.token}")),
+                    Doument(
+                        fields = Fields(
+                            title = Title(
+                                task.title
+                            ),
+                            description = Description(
+                                task.description
+                            ),
+                            isCompleted = IsCompleted(
+                                task.isCompleted
+                            ),
+                            dueDate = DueDate(
+                                task.timetamp
+                            )
+                        )
+                    )
+                )
+            },
+            error = "calling putTask failed"
+        )
+        return when (result) {
+            is NetworkResult.Success ->
+                getTasks(user)
+            is NetworkResult.Error -> {
+                Log.d("Error", "${result.exception}")
+                null
+            }
+        }
     }
 
+    }
+
+fun String?.toDocumentId(): String? {
+    return this?.replace(".*/".toRegex(), "")
 }
 
 
@@ -57,12 +102,18 @@ open class BaseRepository {
         val response = call.invoke()
         return if (response.isSuccessful) {
             if (response.body() != null) {
-                NetworkResult.Success(response.body()!!)
+                NetworkResult.Success(
+                    response.body()!!
+                )
             } else {
-                NetworkResult.Error(IOException(error))
+                NetworkResult.Error(
+                    IOException(error)
+                )
             }
         } else {
-            NetworkResult.Error(IOException(error))
+            NetworkResult.Error(
+                IOException(error)
+            )
         }
     }
 }
