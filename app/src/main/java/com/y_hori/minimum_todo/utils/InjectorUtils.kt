@@ -4,7 +4,6 @@ import com.y_hori.minimum_todo.MinimumTodoApplication
 import com.y_hori.minimum_todo.data.repository.SplashRepository
 import com.y_hori.minimum_todo.data.repository.TaskRepository
 import com.y_hori.minimum_todo.viewmodels.MainViewModelFactory
-import com.y_hori.minimum_todo.viewmodels.SplashViewModel
 import com.y_hori.minimum_todo.viewmodels.SplashViewModelFactory
 
 object InjectorUtils {

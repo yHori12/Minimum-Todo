@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.y_hori.minimum_todo.ui.main.MainFragment"
-        android:label="Minimal ToDo"
+        android:label="Minimum ToDo"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_createTaskFragment"

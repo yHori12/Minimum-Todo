@@ -7,10 +7,9 @@ import androidx.work.WorkManager
 import androidx.work.testing.TestListenableWorkerBuilder
 import com.example.robin.roomwordsample.Utils.NotificationWorker
 import org.hamcrest.CoreMatchers
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 
 //WorkManagerの起動テスト
 class NotificationWorkerTest {

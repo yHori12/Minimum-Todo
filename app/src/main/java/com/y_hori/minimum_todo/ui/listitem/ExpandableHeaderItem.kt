@@ -19,7 +19,7 @@ class ExpandableHeaderItem(
     }
 
     override fun bind(viewBinding: ListItemHeaderBinding, position: Int) {
-        viewBinding.title.text = title
+        viewBinding.tvTitle.text = title
 
         viewBinding.icon.apply {
             visibility = View.VISIBLE

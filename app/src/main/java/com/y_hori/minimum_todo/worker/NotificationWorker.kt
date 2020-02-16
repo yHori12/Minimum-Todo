@@ -15,7 +15,7 @@ import com.y_hori.minimum_todo.ui.main.MainActivity
 
 class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
-    companion object{
+    companion object {
         private const val CHANNEL_ID = "007"
         private const val NOTIFICATION_ID = 369
         private const val RC_NOTIFICATION = 101
@@ -24,6 +24,7 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
         const val KEY_INPUTDATA_DESCRIPTION = "Task Description"
 
     }
+
     private val taskTitle: String? by lazy {
         inputData.getString(KEY_INPUTDATA_TITLE)
     }
@@ -46,7 +47,7 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
 
     private val notification: Notification by lazy {
         NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_notifications_active_24px)
+            .setSmallIcon(R.drawable.ic_done_all)
             .setContentTitle(taskTitle)
             .setContentText(taskDescription)
             .setAutoCancel(true)

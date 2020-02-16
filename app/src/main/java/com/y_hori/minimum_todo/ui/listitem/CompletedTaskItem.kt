@@ -13,7 +13,7 @@ class CompletedTaskItem(private val task: Task) :
         R.layout.list_item_completed_task
 
     override fun bind(viewBinding: ListItemCompletedTaskBinding, position: Int) {
-        viewBinding.title.apply {
+        viewBinding.tvTitle.apply {
             this.text = task.title
             this.paint.setStrike()
         }

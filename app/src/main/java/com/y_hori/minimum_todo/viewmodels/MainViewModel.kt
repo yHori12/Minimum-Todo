@@ -69,7 +69,9 @@ class MainViewModel(private val repository: TaskRepository, private val app: App
                 title = title.value!!,
                 description = description.value!!,
                 dueDate = when {
-                    selectedDeadline != null -> selectedDeadline.seconds + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())
+                    selectedDeadline != null -> selectedDeadline.seconds + TimeUnit.MILLISECONDS.toSeconds(
+                        System.currentTimeMillis()
+                    )
                     else -> 0L
                 }
             )
@@ -92,7 +94,7 @@ class MainViewModel(private val repository: TaskRepository, private val app: App
 
     private fun createNotificationWorker(task: Task) {
         val data = Data.Builder()
-            .putString(NotificationWorker.KEY_INPUTDATA_TITLE,task.title)
+            .putString(NotificationWorker.KEY_INPUTDATA_TITLE, task.title)
             .putString(NotificationWorker.KEY_INPUTDATA_DESCRIPTION, task.description).build()
 
         val notifyManager = OneTimeWorkRequest.Builder(NotificationWorker::class.java)

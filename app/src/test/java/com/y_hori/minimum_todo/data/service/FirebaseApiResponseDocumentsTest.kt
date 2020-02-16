@@ -5,9 +5,8 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.y_hori.minimum_todo.data.model.Task
 import com.y_hori.minimum_todo.data.repository.toDocumentId
+import org.junit.Assert.assertEquals
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 
 class FirebaseApiResponseDocumentsTest {

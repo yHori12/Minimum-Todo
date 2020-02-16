@@ -12,7 +12,7 @@
         app:cardCornerRadius="8dp">
 
         <RelativeLayout
-            android:id="@+id/card_complete"
+            android:id="@+id/cardComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp">
@@ -21,10 +21,10 @@
                 android:id="@+id/hashView"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/ic_done_24px" />
+                android:src="@drawable/ic_done" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

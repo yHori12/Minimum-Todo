@@ -14,9 +14,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.data.enum.Deadline
 import com.y_hori.minimum_todo.databinding.FragmentCreateTaskBinding
-import com.y_hori.minimum_todo.viewmodels.MainViewModel
 import com.y_hori.minimum_todo.utils.InjectorUtils
 import com.y_hori.minimum_todo.utils.startShakeAnimation
+import com.y_hori.minimum_todo.viewmodels.MainViewModel
 
 class CreateTaskFragment : Fragment() {
 
@@ -50,10 +50,10 @@ class CreateTaskFragment : Fragment() {
                 if (input.toString().isEmpty()) return@doAfterTextChanged
                 mainViewModel.updateDescription(input.toString())
             }
-            var selectedDeadline:Deadline? = null
+            var selectedDeadline: Deadline? = null
 
             this.switchNotification.setOnCheckedChangeListener { _, isChecked ->
-                when(isChecked) {
+                when (isChecked) {
                     true -> {
                         spinner.visibility = View.VISIBLE
                         selectedDeadline = Deadline.ONE_MINUTE

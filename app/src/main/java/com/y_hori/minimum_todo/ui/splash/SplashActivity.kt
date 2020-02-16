@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseUser
 import com.y_hori.minimum_todo.R
@@ -47,7 +46,7 @@ class SplashActivity : AppCompatActivity() {
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setLogo(R.drawable.ic_done_all_24px)
+                .setLogo(R.drawable.ic_done_all)
                 .setTheme(R.style.AppTheme)
                 .build(),
             RC_SIGN_IN

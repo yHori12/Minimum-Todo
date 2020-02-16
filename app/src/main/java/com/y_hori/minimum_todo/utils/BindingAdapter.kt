@@ -13,7 +13,7 @@ fun ClassicIdenticonView.setHash(hash: String) {
 }
 
 @BindingAdapter("app:deadline")
-fun TextView.setDeadline(deadlineSecond:Long) {
+fun TextView.setDeadline(deadlineSecond: Long) {
     val millis: Long = deadlineSecond * 1000
     val date = Date(millis)
     val sdf = SimpleDateFormat("yyyy/MMdd HH:mm", Locale.getDefault())
