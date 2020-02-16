@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.y_hori.minimum_todo.ui.main.MainViewModel" />
+            type="com.y_hori.minimum_todo.viewmodels.MainViewModel" />
         <import type="android.view.View" />
     </data>
 

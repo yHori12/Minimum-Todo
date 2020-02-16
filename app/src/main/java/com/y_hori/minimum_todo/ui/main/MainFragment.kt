@@ -21,12 +21,13 @@ import com.y_hori.minimum_todo.ui.listitem.NewTaskItem
 import com.y_hori.minimum_todo.ui.listitem.OnClickTaskItem
 import com.y_hori.minimum_todo.ui.splash.SplashActivity
 import com.y_hori.minimum_todo.utils.InjectorUtils
+import com.y_hori.minimum_todo.viewmodels.MainViewModel
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private val mainViewModel: MainViewModel by activityViewModels {
-        InjectorUtils.provideTaskListViewModelFactory()
+        InjectorUtils.provideMainViewModelFactory()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

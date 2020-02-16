@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.RotateAnimation
-import android.widget.ImageView
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -17,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.data.enum.Deadline
 import com.y_hori.minimum_todo.databinding.FragmentCreateTaskBinding
-import com.y_hori.minimum_todo.ui.main.MainViewModel
+import com.y_hori.minimum_todo.viewmodels.MainViewModel
 import com.y_hori.minimum_todo.utils.InjectorUtils
 import com.y_hori.minimum_todo.utils.startShakeAnimation
 
@@ -25,7 +22,7 @@ class CreateTaskFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateTaskBinding
     private val mainViewModel: MainViewModel by activityViewModels {
-        InjectorUtils.provideTaskListViewModelFactory()
+        InjectorUtils.provideMainViewModelFactory()
     }
 
     override fun onCreateView(

@@ -1,6 +1,6 @@
-package com.y_hori.minimum_todo.ui.splash
+package com.y_hori.minimum_todo.data.repository
 
-import com.google.firebase.auth.FirebaseAuth
+import  com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class SplashRepository {

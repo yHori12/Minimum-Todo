@@ -1,7 +1,6 @@
-package com.y_hori.minimum_todo.ui.main
+package com.y_hori.minimum_todo.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.y_hori.minimum_todo.data.repository.TaskRepository
@@ -11,5 +10,8 @@ class MainViewModelFactory(
     private val repository: TaskRepository, private val application: Application
 ) : ViewModelProvider.AndroidViewModelFactory(application) {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainViewModel(repository,application) as T
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainViewModel(
+        repository,
+        application
+    ) as T
 }

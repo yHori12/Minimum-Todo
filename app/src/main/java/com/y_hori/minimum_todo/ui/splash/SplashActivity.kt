@@ -2,6 +2,7 @@ package com.y_hori.minimum_todo.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
@@ -9,6 +10,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.y_hori.minimum_todo.R
 import com.y_hori.minimum_todo.data.model.User
 import com.y_hori.minimum_todo.ui.main.MainActivity
+import com.y_hori.minimum_todo.utils.InjectorUtils
+import com.y_hori.minimum_todo.viewmodels.SplashViewModel
 
 class SplashActivity : AppCompatActivity() {
 
@@ -17,16 +20,13 @@ class SplashActivity : AppCompatActivity() {
         const val INTENT_KEY_USER = "USER"
     }
 
-    lateinit var splashViewModel: SplashViewModel
+    private val splashViewModel: SplashViewModel by viewModels {
+        InjectorUtils.provideSplashViewModelFactory()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initSplashViewModel()
         goToNextScreen()
-    }
-
-    private fun initSplashViewModel() {
-        splashViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
     }
 
     private fun goToNextScreen() {

@@ -1,4 +1,4 @@
-package com.y_hori.minimum_todo.ui.main
+package com.y_hori.minimum_todo.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
