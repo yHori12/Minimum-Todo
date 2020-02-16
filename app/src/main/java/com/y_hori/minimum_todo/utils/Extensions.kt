@@ -1,5 +1,7 @@
 package com.y_hori.minimum_todo.utils
 
+import android.graphics.Paint
+import android.text.TextPaint
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
@@ -16,4 +18,9 @@ fun ImageView.startShakeAnimation() {
         repeatMode = Animation.REVERSE
     }
     this.startAnimation(rotateAnimation)
+}
+
+fun TextPaint.setStrike() {
+    this.flags = Paint.STRIKE_THRU_TEXT_FLAG
+    this.isAntiAlias = true
 }
