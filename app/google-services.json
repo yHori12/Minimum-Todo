@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "943425453594",
+    "firebase_url": "https://minimum-todo-55cd4.firebaseio.com",
+    "project_id": "minimum-todo-55cd4",
+    "storage_bucket": "minimum-todo-55cd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943425453594:android:5135b5ebfff1b2c0cc1ba3",
+        "android_client_info": {
+          "package_name": "com.y_hori.minimum_todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943425453594-ojtf9nstkrlusgpfr9s13phc321jr541.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.y_hori.minimum_todo",
+            "certificate_hash": "a234d4b3911d5e5b49d50e84e4e7a3abc040db3f"
+          }
+        },
+        {
+          "client_id": "943425453594-abe6l233kv5ipekle88hg6qk1fra04gd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.y_hori.minimum_todo",
+            "certificate_hash": "ed0787210345916d72a3a01c9009ea54378d9534"
+          }
+        },
+        {
+          "client_id": "943425453594-eq9b9l7p4asmkmotal8i7lp9nroiaver.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcEhQRw55Doya9nfwqUAzIW4DUjUcHR00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943425453594-eq9b9l7p4asmkmotal8i7lp9nroiaver.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
