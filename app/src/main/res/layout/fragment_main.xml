@@ -11,15 +11,22 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coodLayout"
+        android:id="@+id/coodinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainFragment">
 
         <ProgressBar
-            android:id="@+id/progress_bar"
+            android:id="@+id/progressBar"
             android:visibility="@{viewModel.shouldShowProgress? View.VISIBLE : View.GONE  }"
             style="@style/style_progress_bar" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            app:onRefreshListener="@{() -> viewModel.fetchTasks()}"
+            app:refreshing="@{viewModel.shouldShowProgress}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/task_list"
@@ -27,6 +34,18 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/list_item_new_task" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="100dp"
+            android:visibility="@{viewModel.tasks.size() > 0 ? View.GONE : View.VISIBLE}"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/arrow_down" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fab"
@@ -38,7 +57,7 @@
             android:background="@color/colorAccent"
             android:elevation="@dimen/margin_16"
             android:padding="12dp"
-            android:text="Todoを追加"
+            android:text="@string/text_add_todo"
             android:textColor="@color/color_white"
             android:textSize="18sp"
             app:cornerRadius="24dp"

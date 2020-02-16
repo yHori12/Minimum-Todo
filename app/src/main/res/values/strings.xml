@@ -7,4 +7,5 @@
     <string name="text_notification">通知</string>
     <string name="text_title_expanding_group">完了したタスク(%d件)</string>
     <string name="text_error_input_title">タイトルを入力してください</string>
+    <string name="text_add_todo">Todoを追加</string>
 </resources>

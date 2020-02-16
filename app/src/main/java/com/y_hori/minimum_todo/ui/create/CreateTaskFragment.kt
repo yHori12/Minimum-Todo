@@ -19,6 +19,7 @@ import com.y_hori.minimum_todo.data.enum.Deadline
 import com.y_hori.minimum_todo.databinding.FragmentCreateTaskBinding
 import com.y_hori.minimum_todo.ui.main.MainViewModel
 import com.y_hori.minimum_todo.utils.InjectorUtils
+import com.y_hori.minimum_todo.utils.startShakeAnimation
 
 class CreateTaskFragment : Fragment() {
 
@@ -59,6 +60,7 @@ class CreateTaskFragment : Fragment() {
                     true -> {
                         spinner.visibility = View.VISIBLE
                         selectedDeadline = Deadline.ONE_MINUTE
+                        imvNotification.startShakeAnimation()
                     }
                     else -> {
                         spinner.visibility = View.INVISIBLE
