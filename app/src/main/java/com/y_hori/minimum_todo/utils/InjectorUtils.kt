@@ -1,5 +1,6 @@
 package com.y_hori.minimum_todo.utils
 
+import com.y_hori.minimum_todo.MinimumTodoApplication
 import com.y_hori.minimum_todo.data.repository.TaskRepository
 import com.y_hori.minimum_todo.ui.main.MainViewModelFactory
 
@@ -7,8 +8,9 @@ object InjectorUtils {
     fun provideTaskListViewModelFactory(): MainViewModelFactory {
         val repository =
             getTaskRepository()
+        val application = MinimumTodoApplication.context
         return MainViewModelFactory(
-            repository
+            repository,application
         )
     }
 

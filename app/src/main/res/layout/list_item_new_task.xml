@@ -7,17 +7,19 @@
         <variable
             name="task"
             type="com.y_hori.minimum_todo.data.model.Task" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="8dp"
-        app:cardCornerRadius="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:elevation="8dp"
+        app:cardCornerRadius="8dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,8 +43,10 @@
                 android:layout_toEndOf="@id/hashView"
                 android:text="@{task.title}"
                 android:textColor="@color/textColorBlack"
+                android:maxLength="24"
+                android:ellipsize="end"
                 android:textSize="22sp"
-                tools:text="@string/text_new_task" />
+                tools:text="string/text_new_task" />
 
             <TextView
                 android:id="@+id/tvDescription"
@@ -52,8 +56,10 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_toEndOf="@id/hashView"
                 android:text="@{task.description}"
+                android:maxLength="24"
+                android:ellipsize="end"
                 android:textSize="12sp"
-                tools:text="@string/text_reminder_time" />
+                tools:text="string/text_reminder_time" />
 
             <TextView
                 android:id="@+id/tvDeadLine"
@@ -62,7 +68,10 @@
                 android:layout_below="@id/tvTitle"
                 android:layout_marginStart="16dp"
                 android:layout_toStartOf="@id/completionToggle"
+                android:textColor="@color/colorAccent"
                 android:textSize="12sp"
+                android:visibility="@{task.dueDate != 0L ? View.VISIBLE:View.GONE}"
+                app:deadline="@{task.dueDate}"
                 tools:text="@string/text_reminder_time" />
 
             <CheckBox
@@ -71,7 +80,8 @@
                 android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp" />
+                android:layout_marginEnd="15dp"
+                android:checked="@{task.isCompleted}" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

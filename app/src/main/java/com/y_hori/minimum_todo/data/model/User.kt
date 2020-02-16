@@ -10,13 +10,5 @@ import kotlinx.android.parcel.Parcelize
 data class User(
     val token: String = "",
     var uid: String = ""
-) : Parcelable {
-    @IgnoredOnParcel
-    var name: String? = ""
-}
+) : Parcelable
 
-@JsonClass(generateAdapter = true)
-data class UserItem(
-    val first: String,
-    val last: String
-)

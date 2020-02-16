@@ -8,12 +8,12 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-class Task(
+data class Task(
     @Transient
     var id: String = "",
     var title: String = "",
     var description: String = "",
-    val timetamp: Long = Date().time,
+    val dueDate: Long = 0L,
     @Json(name = "is_completed")
     var isCompleted: Boolean = false
 ) : Parcelable {

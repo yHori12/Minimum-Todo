@@ -8,20 +8,20 @@ interface TaskApiInterface {
     suspend fun fetchTasks(
         @Path("user") uid: String,
         @HeaderMap token: Map<String, String>
-    ): Response<FirebaseApiResponse>
+    ): Response<FirebaseApiResponseDocuments>
 
     @POST("(default)/documents/{user}/")
     suspend fun postTask(
         @Path("user") uid: String,
         @HeaderMap token: Map<String, String>,
-        @Body task: Document
-    ): Response<FirebaseApiResponse>
+        @Body task: FirebaseApiResponseDocument
+    ): Response<FirebaseApiResponseDocument>
 
     @PATCH("(default)/documents/{user}/{taskId}")
     suspend fun patchTask(
         @Path("user") uid: String,
         @Path("taskId") taskId: String,
         @HeaderMap token: Map<String, String>,
-        @Body task: Document
-    ): Response<Document>
+        @Body task: FirebaseApiResponseDocument
+    ): Response<FirebaseApiResponseDocument>
 }

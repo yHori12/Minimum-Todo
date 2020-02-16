@@ -4,12 +4,12 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class FirebaseApiResponse(
-    val documents: List<Document>?
+data class FirebaseApiResponseDocuments(
+    val documents: List<FirebaseApiResponseDocument>?
 )
 
 @JsonClass(generateAdapter = true)
-data class Document(
+data class FirebaseApiResponseDocument(
     val createTime: String? = null,
     val fields: Fields,
     val name: String? = null,

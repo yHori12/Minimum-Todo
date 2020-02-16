@@ -21,7 +21,7 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
                 }
     }
 
-    suspend fun getTasks(user: User): MutableList<Task>? {
+    suspend fun fetchTasks(user: User): MutableList<Task>? {
         val result = apiOutput(
             call = {
                 apiInterface.fetchTasks(
@@ -38,6 +38,7 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
                     Task(
                         id = document.name.toDocumentId() ?: "",
                         title = document.fields.title.stringValue,
+                        dueDate = document.fields.dueDate.integerValue,
                         description = document.fields.description.stringValue,
                         isCompleted = document.fields.isCompleted.booleanValue
                     )
@@ -51,13 +52,13 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
     }
 
 
-    suspend fun createTask(task: Task, user: User): MutableList<Task>? {
+    suspend fun createTask(task: Task, user: User): Task? {
         val result = apiOutput(
             call = {
                 apiInterface.postTask(
                     user.uid,
                     mapOf(Pair("Authorization", "Bearer ${user.token}")),
-                    Document(
+                    FirebaseApiResponseDocument(
                         fields = Fields(
                             title = Title(
                                 task.title
@@ -69,7 +70,7 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
                                 task.isCompleted
                             ),
                             dueDate = DueDate(
-                                task.timetamp
+                                task.dueDate
                             )
                         )
                     )
@@ -79,7 +80,15 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
         )
         return when (result) {
             is NetworkResult.Success ->
-                getTasks(user)
+                result.output.let { document ->
+                    Task(
+                        id = document.name.toDocumentId() ?: "",
+                        title = document.fields.title.stringValue,
+                        description = document.fields.description.stringValue,
+                        dueDate = document.fields.dueDate.integerValue,
+                        isCompleted = document.fields.isCompleted.booleanValue
+                    )
+                }
             is NetworkResult.Error -> {
                 Log.d("Error", "${result.exception}")
                 null
@@ -94,7 +103,7 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
                     user.uid,
                     task.id,
                     mapOf(Pair("Authorization", "Bearer ${user.token}")),
-                    Document(
+                    FirebaseApiResponseDocument(
                         fields = Fields(
                             title = Title(
                                 task.title
@@ -106,7 +115,7 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
                                 task.isCompleted
                             ),
                             dueDate = DueDate(
-                                task.timetamp
+                                task.dueDate
                             )
                         )
                     )
@@ -116,7 +125,7 @@ class TaskRepository(private val apiInterface: TaskApiInterface) : BaseRepositor
         )
         return when (result) {
             is NetworkResult.Success ->
-                getTasks(user)
+                fetchTasks(user)
             is NetworkResult.Error -> {
                 Log.d("Error", "${result.exception}")
                 null

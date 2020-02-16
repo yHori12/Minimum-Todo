@@ -1,15 +1,23 @@
 package com.y_hori.minimum_todo.ui.main
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import com.example.robin.roomwordsample.Utils.NotificationWorker
+import com.y_hori.minimum_todo.data.enum.Deadline
 import com.y_hori.minimum_todo.data.model.Task
 import com.y_hori.minimum_todo.data.model.User
 import com.y_hori.minimum_todo.data.repository.TaskRepository
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
-class MainViewModel(private val repository: TaskRepository) : ViewModel() {
+class MainViewModel(private val repository: TaskRepository, private val app: Application) :
+    AndroidViewModel(app) {
 
     private val _tasks = MutableLiveData<MutableList<Task>>()
     val tasks: LiveData<MutableList<Task>>
@@ -40,31 +48,62 @@ class MainViewModel(private val repository: TaskRepository) : ViewModel() {
     fun fetchTasks() {
         viewModelScope.launch {
             _shouldShowProgress.value = true
-            repository.getTasks(user)?.let { tasks ->
+            repository.fetchTasks(user)?.let { tasks ->
                 _tasks.postValue(tasks)
             }
             _shouldShowProgress.value = false
         }
     }
 
-    fun createTask() {
+    fun createTask(selectedDeadline: Deadline?) {
         if (title.value.isNullOrEmpty()) {
             _liveEventShowErrorDialog.value = true
             _liveEventShowErrorDialog.value = false
             return
         }
+
         viewModelScope.launch {
             _shouldShowProgress.value = true
+
+            val task = Task(
+                title = title.value!!,
+                description = description.value!!,
+                dueDate = when {
+                    selectedDeadline != null -> selectedDeadline.seconds + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())
+                    else -> 0L
+                }
+            )
+            if (task.dueDate != 0L) {
+                createNotificationWorker(task)
+            }
+
             repository.createTask(
-                Task(title = title.value!!, description = description.value!!),
+                task,
                 user
-            )?.let { tasks ->
-                _tasks.postValue(tasks)
+            )?.let { responsedTask ->
+                _tasks.value?.add(responsedTask)
+//                _tasks.postValue(_tasks.value?.add(responsedTask))
                 _liveEventCreateTaskSuccess.value = true
                 _liveEventCreateTaskSuccess.value = false
                 _shouldShowProgress.value = false
             }
         }
+    }
+
+    private fun createNotificationWorker(task: Task) {
+        val data = Data.Builder()
+            .putString(NotificationWorker.KEY_INPUTDATA_TITLE,task.title)
+            .putString(NotificationWorker.KEY_INPUTDATA_DESCRIPTION, task.description).build()
+
+        val notifyManager = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
+            .setInputData(data)
+            .setInitialDelay(
+                task.dueDate - TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()),
+                TimeUnit.SECONDS
+            )
+            .addTag(task.dueDate.toString())
+            .build()
+        WorkManager.getInstance(app.applicationContext).enqueue(notifyManager)
     }
 
     fun updateTitle(title: String) {

@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.ImageView
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -12,6 +15,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.y_hori.minimum_todo.R
+import com.y_hori.minimum_todo.data.enum.Deadline
 import com.y_hori.minimum_todo.databinding.FragmentCreateTaskBinding
 import com.y_hori.minimum_todo.ui.main.MainViewModel
 import com.y_hori.minimum_todo.utils.InjectorUtils
@@ -47,6 +51,29 @@ class CreateTaskFragment : Fragment() {
             this.description.doAfterTextChanged { input ->
                 if (input.toString().isEmpty()) return@doAfterTextChanged
                 mainViewModel.updateDescription(input.toString())
+            }
+            var selectedDeadline:Deadline? = null
+
+            this.switchNotification.setOnCheckedChangeListener { _, isChecked ->
+                when(isChecked) {
+                    true -> {
+                        spinner.visibility = View.VISIBLE
+                        selectedDeadline = Deadline.ONE_MINUTE
+                    }
+                    else -> {
+                        spinner.visibility = View.INVISIBLE
+                        selectedDeadline = null
+                    }
+                }
+            }
+            this.spinner.apply {
+                setItems(Deadline.listOfTitle())
+                setOnItemSelectedListener { _, position, _, _ ->
+                    selectedDeadline = Deadline.values()[position]
+                }
+            }
+            this.buttonCreate.setOnClickListener {
+                mainViewModel.createTask(selectedDeadline)
             }
         }
         subscribeUi()
