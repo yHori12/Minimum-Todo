@@ -16,7 +16,7 @@ fun ClassicIdenticonView.setHash(hash: String) {
 fun TextView.setDeadline(deadlineSecond: Long) {
     val millis: Long = deadlineSecond * 1000
     val date = Date(millis)
-    val sdf = SimpleDateFormat("yyyy/MMdd HH:mm", Locale.getDefault())
+    val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault())
 
     this.text = sdf.format(date)
 }

@@ -68,8 +68,8 @@ class MainFragment : Fragment() {
     }
 
     private fun subscribeUi(adapter: GroupAdapter<GroupieViewHolder>) {
-        mainViewModel.tasks.observe(viewLifecycleOwner) { tasks ->
-            val newTasks = tasks.filter { !it.isCompleted }.map { task ->
+        mainViewModel.newTasks.observe(viewLifecycleOwner) { tasks ->
+            val newTasks = tasks.map { task ->
                 NewTaskItem(task, object : OnClickTaskItem {
                     override fun onClickComplete() {
                         mainViewModel.completeTask(task.apply {
@@ -79,8 +79,9 @@ class MainFragment : Fragment() {
                 })
             }
             adapter.update(newTasks)
-
-            val completedTasks = tasks.filter { task -> task.isCompleted }.map { task ->
+        }
+        mainViewModel.completedTasks.observe(viewLifecycleOwner) { tasks ->
+            val completedTasks = tasks.map { task ->
                 CompletedTaskItem(task)
             }
             if (!completedTasks.isNullOrEmpty()) {

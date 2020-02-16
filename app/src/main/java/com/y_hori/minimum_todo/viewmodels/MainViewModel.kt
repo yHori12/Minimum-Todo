@@ -1,10 +1,7 @@
 package com.y_hori.minimum_todo.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
@@ -13,7 +10,9 @@ import com.y_hori.minimum_todo.data.enum.Deadline
 import com.y_hori.minimum_todo.data.model.Task
 import com.y_hori.minimum_todo.data.model.User
 import com.y_hori.minimum_todo.data.repository.TaskRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
 class MainViewModel(private val repository: TaskRepository, private val app: Application) :
@@ -22,6 +21,12 @@ class MainViewModel(private val repository: TaskRepository, private val app: App
     private val _tasks = MutableLiveData<MutableList<Task>>()
     val tasks: LiveData<MutableList<Task>>
         get() = _tasks
+    val newTasks:LiveData<List<Task>> = tasks.map { tasks ->
+        tasks.filter { !it.isCompleted }
+    }
+    val completedTasks:LiveData<List<Task>> = tasks.map { tasks ->
+        tasks.filter { it.isCompleted }
+    }
 
     private val _title = MutableLiveData<String>()
     val title: LiveData<String>
@@ -46,12 +51,12 @@ class MainViewModel(private val repository: TaskRepository, private val app: App
     private var user: User = User()
 
     fun fetchTasks() {
-        viewModelScope.launch {
-            _shouldShowProgress.value = true
+        _shouldShowProgress.value = false
+        viewModelScope.launch(Dispatchers.IO) {
             repository.fetchTasks(user)?.let { tasks ->
                 _tasks.postValue(tasks)
             }
-            _shouldShowProgress.value = false
+            _shouldShowProgress.postValue(false)
         }
     }
 
@@ -84,7 +89,6 @@ class MainViewModel(private val repository: TaskRepository, private val app: App
                 user
             )?.let { responsedTask ->
                 _tasks.value?.add(responsedTask)
-//                _tasks.postValue(_tasks.value?.add(responsedTask))
                 _liveEventCreateTaskSuccess.value = true
                 _liveEventCreateTaskSuccess.value = false
                 _shouldShowProgress.value = false

@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.Bridge">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/textColorBlack</item>
+        <item name="colorPrimaryDark">@color/color_black</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="textAppearanceButton">@style/AppTextAppearance.Button</item>
     </style>
@@ -21,7 +21,7 @@
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar" />
 
     <style name="ToolBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="colorControlNormal">@color/textColorBlack</item>
+        <item name="colorControlNormal">@color/color_black</item>
     </style>
 
     <style name="style_progress_bar" parent="Widget.AppCompat.ProgressBar.Horizontal">

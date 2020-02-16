@@ -120,8 +120,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:enabled="@{!viewModel.shouldShowProgress}"
                 android:text="@string/text_save"
-                android:textColor="@color/textColorBlack" />
+                android:textColor="@color/color_black" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
